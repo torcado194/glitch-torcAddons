@@ -3,11 +3,11 @@
     width: 100%;
     display: block;
     white-space: pre;
-    padding-left: 9px;
+    padding-left: 11px;
 }
 
 .torc-indentGuide {
     border-left: 1px dotted rgba(255,255,255,0.2);
-    margin-left: -0.5px;
+    margin-left: -1px;
     position: relative;
 }
