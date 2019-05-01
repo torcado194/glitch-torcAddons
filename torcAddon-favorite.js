@@ -1,136 +1,107 @@
 /*
- * torcAddons-filetree | v1.0.0
- * turns the glitch file navigator into a (real) file tree, also adding a searchbar
+ * torcAddons-favorite | v1.0.1
+ * adds the ability to favorite files to pin them to the top of the file list
  * by torcado
  */
 (()=>{
 	let t = torcAddons;
-
-	window.addEventListener('load', ()=>{
-		$.extend($.easing, {
-			easeOutQuint: function (x, t, b, c, d) {
-				return c*((t=t/d-1)*t*t*t*t + 1) + b;
-			},
-		});
+	
+	let project = '';
+	
+	t.addEventListener('load', ()=>{
+	    project = window.location.href.match(/#!\/((?:[^?]|.)+)/)[1];
+	    setFavorites();
+		addStars();
 	});
-
+	
 	t.addEventListener('treeUpdate', ()=>{
-		compileTree();
-		addSearch();
-	})
-
-	t.fileTree = [];
-	t.fileList = [];
-
-	function compileTree(){
-		$('.torc-tree').remove();
-		t.fileTree = [];
-		t.fileList = [];
-		$('.filetree').eq(0).children('.file').each(function(el){
-			let pathName = $(this).attr('title'),
-				path = pathName.split('/');
-			let dir,
-				pointer = t.fileTree;
-			t.fileList.push({file: path.slice(-1)[0], name: path.slice(-1)[0].split('.')[0], el: $(this)});
-			for(let i = 0; i < path.length; i++){
-				let sub = path[i];
-				if(pointer.some(v => v[sub])){
-					pointer = Object.values(pointer.filter(v => v[sub])[0])[0];
-				} else {
-					if(i === path.length - 1){
-						pointer.push($(this));
-					} else {
-						let a = [];
-						pointer.push({[sub]: a});
-						pointer = a;
-					}
-				}
-			}
-		});
-		
-		let treeEl = $('<div class="filetree torc-tree"></div>').appendTo($('.files').eq(0));
-		
-		function add(dir, el){
-			let cursor = dir,
-				cursorEl = el;
-			if(!(cursor instanceof jQuery)){
-				let name = Object.keys(cursor)[0],
-					sub = Object.values(cursor)[0];
-				cursorEl = $(`<div class="dir" name="${name}"><div class="collapse">/${name}</div></div>`).appendTo(cursorEl);
-				
-				cursorEl.find('.collapse').click(function(e){
-					if(e.target !== this){
-						return;
-					}
-					let collapseEl = $(this).closest('.dir').toggleClass('hide');
-					if(collapseEl.hasClass('hide')){
-						collapseEl.stop().animate({
-							height: 0
-						}, {
-							duration: 250,
-							easing: "easeOutQuint",
-							queue: false
-						});
-					} else {
-						collapseEl.stop().animate({
-							height: collapseEl[0].scrollHeight
-						}, {
-							duration: 250,
-							easing: "easeOutQuint",
-							queue: false,
-							complete: function(){
-								$(this).css("height", "");
-							}
-						});
-					}
-					
-					e.stopPropagation();
-				});
-				sub.forEach(v => add(v, cursorEl));
-			} else {
-				cursorEl.append(cursor);
-			}
-		}
-		
-		t.fileTree.forEach(dir => {
-			add(dir, treeEl);
-		});
+	    setFavorites();
+		addStars();
+	});
+	
+	function setFavorites(){
+	    $('.torc-favoritesList').remove();
+	    let favsList = {},
+	        html = '<div class="torc-favoritesList filetree"><div class="torc-favoritesTitle">favorites</div></div>'
+	    if($('.torc-search')[0]){
+	        favsList = $(html).insertBefore($('.torc-search'));
+	    } else {
+	        favsList = $(html).insertBefore($('.filetree'));
+	    }
+	    let favs = JSON.parse(localStorage.getItem('favorites'));
+	    favs && favs[project] && favs[project].forEach(v => {
+	        let el = $(`.file[title="${v}"]`).clone().attr('torc-file', '').removeClass('active');
+	        el.find('.torc-favstar').on('click', handleStarClick);
+	        favsList.append(el);
+	        el.click(function(){application.selectFileByPathOrDefaultFile(v)});
+	    });
 	}
-
-	function addSearch(){
-		let searchBar = $('<input class="torc-search">').insertAfter($('.filetree:not(.torc-tree)'));
-		
-		searchBar.on('input', function() {
-			if(searchBar[0].value.length > 0){
-				let search = searchBar[0].value,
-					show = list.filter(v => v.name.includes(search));
-					hide = list.filter(v => !v.name.includes(search));
-					
-				show.forEach(v => {
-					 v.el.removeAttr('torc-searchHide', '');
-					
-					let el = v.el.find('.filename'),
-						text = el.text();
-					
-					let s = text.split(new RegExp(`(${search})`));
-					
-					el.html(`${s[0]}<span class="torc-searchHighlight">${s[1]}</span>${s.slice(2).join('')}`);
-				});
-				hide.forEach(v => {
-					v.el.attr('torc-searchHide', '');
-					
-					let el = v.el.find('.filename');
-					el.html(v.name);
-				});
-				
-			} else {
-				list.forEach(v => {
-					v.el.removeAttr('torc-searchHide', '');
-					
-					let el = v.el.find('.filename');
-					el.html(v.name);
-				});
-			}
-		});
+	
+	function addFavorite(el){
+	    el = el.clone().attr('torc-file', '').removeClass('active');
+	    el.click(function(){application.selectFileByPathOrDefaultFile($(this).attr('title'))});
+	    el.css({
+	        height: 0,
+	        opacity: 0,
+	    });
+	    $('.torc-favoritesList').append(el);
+	    el.animate({
+	        height: '19px',
+	        opacity: 1,
+	    }, 350, 'easeOutQuint');
 	}
+	
+	function removeFavorite(el){
+	    let file = $('.torc-favoritesList').find(`.file[title="${el.attr('title')}"]`);
+	    file.animate({
+	        height: 0,
+	        margin: 0,
+	        padding: 0,
+	        overflow: 'hidden',
+	        opacity: 0,
+	    }, 350, 'easeOutQuint', function(){
+	        $(this).remove();
+	    });
+	}
+	
+	function addStars(){
+        $('.torc-favstar').remove();
+        $('.filetree .file').append('<div class="torc-favstar"></div>');
+        
+        let favs = JSON.parse(localStorage.getItem('favorites'));
+        $('.file').each(function(){
+            if(favs && favs[project] && favs[project].includes($(this).attr('title'))){
+                $(this).attr('torc-favorited', '');
+            } else {
+                $(this).removeAttr('torc-favorited');
+            }
+        });
+        
+        $('.torc-favstar').on('click', handleStarClick);
+	}
+	
+	function handleStarClick(e){
+	    e.stopPropagation();
+        let el = $(this).closest('.file')
+        let favs = JSON.parse(localStorage.getItem('favorites'));
+        if(!favs){
+            favs = {};
+        }
+        if(!favs[project]){
+            favs[project] = [];
+        }
+        if(el.attr('torc-favorited') === undefined){ //add
+            el.attr('torc-favorited', '');
+            favs[project].push(el.attr('title'));
+            addFavorite(el);
+        } else { //remove
+            el.removeAttr('torc-favorited');
+            favs[project].splice(favs[project].indexOf(el.attr('title')), 1);
+            removeFavorite(el);
+        }
+        localStorage.setItem('favorites', JSON.stringify(favs));
+        addStars();
+        //setFavorites();
+	}
+	
 })()

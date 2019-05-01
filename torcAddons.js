@@ -1,5 +1,5 @@
 /*
- * torcAddons | v1.0.1
+ * torcAddons | v1.1.0
  * a base driver for glitch.com aaddons
  * by torcado
  */
@@ -31,22 +31,41 @@ let treeObserver = new MutationObserver(function(mutations) {
     }
     mutations.forEach(function(mutation) {
         if(mutation.addedNodes && mutation.addedNodes.length > 0) {
+            console.log(mutation.addedNodes);
+            let newFile = false;
+            mutation.addedNodes.forEach(n => {
+                if($(n).attr('torc-file') === undefined){
+                    newFile = true;
+                }
+            });
+            if(!newFile){
+                return;
+            }
             treeUpdateDebounce();
         }
     });
 });
 
-let codeUpdateDebounce = t.debounce(()=>t.dispatchEvent(new CustomEvent('codeUpdate')), 5, true);
+//let codeUpdateDebounce = t.debounce(()=>, 5, true);
 
 let codeObserver = new MutationObserver(function(mutations) {
     if(!t.loaded){
         return;
     }
-    codeUpdateDebounce();
+    //codeUpdateDebounce();
+    t.dispatchEvent(new CustomEvent('codeUpdate'))
 });
 
 
 window.addEventListener('load', (event) => {
+    $.extend($.easing, {
+		easeInQuint: function (x, t, b, c, d) {
+            return c*(t/=d)*t*t*t*t + b;
+        },
+		easeOutQuint: function (x, t, b, c, d) {
+			return c*((t=t/d-1)*t*t*t*t + 1) + b;
+		},
+	});
     setTimeout(function(){
 		
 		let treeConfig = {
@@ -62,6 +81,7 @@ window.addEventListener('load', (event) => {
 		codeObserver.observe($('.CodeMirror-sizer').eq(0)[0], codeConfig);
 		
         application.projectIsLoaded.observe(() => {
+            $('body').addClass(application.currentTheme())
             setTimeout(function(){
                 t.loaded = true;
 				t.dispatchEvent(new CustomEvent('load'))

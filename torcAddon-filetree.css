@@ -1,9 +1,9 @@
-.filetree.torctree {
+.filetree.torc-tree {
     padding-left: 4px;
     padding-bottom: 80px !important;
 }
 
-.torctree .dir {
+.torc-tree .dir {
     border-left: 1px dashed rgba(255,255,255,0.25);
     margin-left: 12px;
     padding-left: 4px;
@@ -12,16 +12,19 @@
     margin-top: 22px;
     /* transition-duration: 0.25s; */
 }
+.sugar .torc-tree .dir {
+    border-left: 1px dashed rgba(0, 0, 0, 0.3);
+}
 
-.torctree .dir.hide {
+.torc-tree .dir.hide {
     /*height: 0 !important;*/
 }
 
-.torctree .folder-path{
+.torc-tree .folder-path{
     display: none;
 }
 
-.torctree .collapse {
+.torc-tree .collapse {
     margin-left: -8px;
     /* background-color: #160f19; */
     margin-top: -24px;
@@ -34,6 +37,9 @@
     opacity: 1;
     transition-property: opacity;
     transition-duration: 0.25s;
+}
+.sugar .torc-tree .collapse {
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .hide .dir .collapse {
@@ -53,25 +59,25 @@
 
 /* search */
 
-.torcsearch {
+.torc-search {
     height: 20px;
     width: calc(100% - 20px);
     border: 1px solid #666666;
-    margin: 12px 10px 2px;
+    margin: 0px 10px 2px;
     border-radius: 10px;
     background-color: initial;
     padding: 8px;
     position: relative;
 }
 
-.filetree .filetree-child.file {
+.filetree.torc-tree .filetree-child.file {
     transition: 0.25s ease-out;
     transition-property: opacity, height;
     height: 19px;
     opacity: 1;
 }
 
-.file[searchHide] {
+.file[torc-searchHide] {
     height: 0 !important;
     opacity: 0 !important;
 }

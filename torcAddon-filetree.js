@@ -1,28 +1,25 @@
 /*
- * torcAddons-filetree | v1.0.0
+ * torcAddons-filetree | v1.0.1
  * turns the glitch file navigator into a (real) file tree, also adding a searchbar
  * by torcado
  */
 (()=>{
 	let t = torcAddons;
-
-	window.addEventListener('load', ()=>{
-		$.extend($.easing, {
-			easeOutQuint: function (x, t, b, c, d) {
-				return c*((t=t/d-1)*t*t*t*t + 1) + b;
-			},
-		});
-	});
+    
+	t.addEventListener('load', ()=>{
+		compileTree();
+		addSearch();
+	})
 
 	t.addEventListener('treeUpdate', ()=>{
 		compileTree();
-		addSearch();
 	})
 
 	t.fileTree = [];
 	t.fileList = [];
 
 	function compileTree(){
+	    console.log('aa');
 		$('.torc-tree').remove();
 		t.fileTree = [];
 		t.fileList = [];
@@ -98,13 +95,14 @@
 	}
 
 	function addSearch(){
+	    $('.torc-search').remove();
 		let searchBar = $('<input class="torc-search">').insertAfter($('.filetree:not(.torc-tree)'));
 		
 		searchBar.on('input', function() { 
 			if(searchBar[0].value.length > 0){
 				let search = searchBar[0].value,
-					show = list.filter(v => v.name.includes(search));
-					hide = list.filter(v => !v.name.includes(search));
+					show = t.fileList.filter(v => v.name.includes(search));
+					hide = t.fileList.filter(v => !v.name.includes(search));
 					
 				show.forEach(v => {
 					 v.el.removeAttr('torc-searchHide', '');
@@ -124,7 +122,7 @@
 				});
 				
 			} else {
-				list.forEach(v => {
+				t.fileList.forEach(v => {
 					v.el.removeAttr('torc-searchHide', '');
 					
 					let el = v.el.find('.filename');

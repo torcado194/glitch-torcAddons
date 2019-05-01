@@ -1,5 +1,5 @@
 /*
- * torcAddons-indentGuides | v1.0.0
+ * torcAddons-indentGuides | v1.0.1
  * adds indent guides to glitch code
  * by torcado
  */
@@ -11,7 +11,6 @@
 	})
 
 	function addGuides(){
-		console.log('d');
 		$('.torc-indentGuide').remove();
 		$('span[role="presentation"]').each(function(){
 			let s = $(this).text().split(/^( *)/)
