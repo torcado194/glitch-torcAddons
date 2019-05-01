@@ -1,0 +1,97 @@
+.filetree.torctree {
+    padding-left: 4px;
+    padding-bottom: 80px !important;
+}
+
+.torctree .dir {
+    border-left: 1px dashed rgba(255,255,255,0.25);
+    margin-left: 12px;
+    padding-left: 4px;
+    padding-top: 0px;
+    overflow: hidden;
+    margin-top: 22px;
+    /* transition-duration: 0.25s; */
+}
+
+.torctree .dir.hide {
+    /*height: 0 !important;*/
+}
+
+.torctree .folder-path{
+    display: none;
+}
+
+.torctree .collapse {
+    margin-left: -8px;
+    /* background-color: #160f19; */
+    margin-top: -24px;
+    margin-bottom: -3px;
+    padding-bottom: 3px;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    position: absolute;
+    padding-top: 5px;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.25s;
+}
+
+.hide .dir .collapse {
+    opacity: 0;
+}
+
+
+.dir.hide>.collapse:after {
+    content: "...";
+    position: absolute;
+    right: -16px;
+    top: 1px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* search */
+
+.torcsearch {
+    height: 20px;
+    width: calc(100% - 20px);
+    border: 1px solid #666666;
+    margin: 12px 10px 2px;
+    border-radius: 10px;
+    background-color: initial;
+    padding: 8px;
+    position: relative;
+}
+
+.filetree .filetree-child.file {
+    transition: 0.25s ease-out;
+    transition-property: opacity, height;
+    height: 19px;
+    opacity: 1;
+}
+
+.file[searchHide] {
+    height: 0 !important;
+    opacity: 0 !important;
+}
+
+.torc-searchHighlight {
+    color: #ff5288;
+}
+
+/* overrides */
+
+.filetree.filetree {
+    padding-bottom: 0;
+}
+
+.filetree .filetree-child .current-users {
+    position: absolute !important;
+    left: -4px !important;
+    height: 20px !important;
+}
+
+.filetree .filetree-child {
+    /*position: initial !important;*/
+}
