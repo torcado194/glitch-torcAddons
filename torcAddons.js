@@ -1,5 +1,5 @@
 /*
- * torcAddons | v1.2.1
+ * torcAddons | v1.2.2
  * a base driver for glitch.com addons
  * by torcado
  */
