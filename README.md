@@ -13,15 +13,15 @@ for every addon, the base driver script `torcAddons.js` must also exist, and mus
 > it also comes with a file searchbar, automatically hiding files not matching the search.
 
 **favorite**
-adds a "favorite" star button next to each file, allowing you to add or remove files to a favorites list.
-a list of favorited files is displayed above the filetree. favorites are saved to local storage and are tied to the project.
+> adds a "favorite" star button next to each file, allowing you to add or remove files to a favorites list.
+> a list of favorited files is displayed above the filetree. favorites are saved to local storage and are tied to the project.
 
 **indentGuides**
-adds visual guides to indentation in the code
+> adds visual guides to indentation in the code
 
 **pasteAndIndent**
-automatically correctly indents code when you paste it. you can prevent this behavior with ctrl+shift+v.
+> automatically correctly indents code when you paste it. you can prevent this behavior with ctrl+shift+v.
 
 **colors**
-adds a visual color component next to css colors
+> adds a visual color component next to css colors
 
