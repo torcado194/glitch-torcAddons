@@ -1,6 +1,6 @@
 /*
- * torcAddons | v1.2.0
- * a base driver for glitch.com aaddons
+ * torcAddons | v1.2.1
+ * a base driver for glitch.com addons
  * by torcado
  */
 var torcAddons = torcAddons || new EventTarget();
@@ -104,4 +104,3 @@ function handleFileSelect(doc){
 function watchChanges(doc){
     application.getCurrentSession().cm.on('change', (cm, change) => t.dispatchEvent(new CustomEvent('fileEdit', {detail: {cm, change}})));
 }
-
