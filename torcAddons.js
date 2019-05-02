@@ -26,7 +26,7 @@ t.debounce = (func, wait, immediate) => {
 let treeUpdateDebounce = t.debounce(()=>t.dispatchEvent(new CustomEvent('treeUpdate')), 5, true);
 
 let treeObserver = new MutationObserver(function(mutations) {
-	if(!t.loaded){
+    if(!t.loaded){
         return;
     }
     mutations.forEach(function(mutation) {
@@ -58,36 +58,36 @@ let codeObserver = new MutationObserver(function(mutations) {
 
 window.addEventListener('load', (event) => {
     $.extend($.easing, {
-		easeInQuint: function (x, t, b, c, d) {
+        easeInQuint: function (x, t, b, c, d) {
             return c*(t/=d)*t*t*t*t + b;
         },
-		easeOutQuint: function (x, t, b, c, d) {
-			return c*((t=t/d-1)*t*t*t*t + 1) + b;
-		},
-	});
+        easeOutQuint: function (x, t, b, c, d) {
+            return c*((t=t/d-1)*t*t*t*t + 1) + b;
+        },
+    });
     setTimeout(function(){
-		
-		let treeConfig = {
-			attributes: true,
-			childList: true,
-			characterData: true
-		};
-		treeObserver.observe($('.filetree').eq(0)[0], treeConfig);
-		let codeConfig = {
-			attributes: true,
-			childList: false,
-		};
-		codeObserver.observe($('.CodeMirror-sizer').eq(0)[0], codeConfig);
-		
+        
+        let treeConfig = {
+            attributes: true,
+            childList: true,
+            characterData: true
+        };
+        treeObserver.observe($('.filetree').eq(0)[0], treeConfig);
+        let codeConfig = {
+            attributes: true,
+            childList: false,
+        };
+        codeObserver.observe($('.CodeMirror-sizer').eq(0)[0], codeConfig);
+        
         application.projectIsLoaded.observe(() => {
             
             $('body').addClass(application.currentTheme());
             
             setTimeout(function(){
-				application.selectedFile.observe(handleFileSelect);
-				watchChanges();
+                application.selectedFile.observe(handleFileSelect);
+                watchChanges();
                 t.loaded = true;
-				t.dispatchEvent(new CustomEvent('load'))
+                t.dispatchEvent(new CustomEvent('load'))
             }, 5);
             
         });
