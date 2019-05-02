@@ -43,9 +43,10 @@
                     let lineNo = line.lineNo(),
 						length = line.text.length;
 					//add temp text to indent blank lines
-                    editor.document.replaceRange(';', {line: lineNo, ch: 0}, {line: lineNo, ch: length});
+                    cm.replaceRange(';', {line: lineNo, ch: 0}, {line: lineNo, ch: length});
                     cm.indentLine(lineNo, "smart");
-                    editor.document.replaceRange('', {line: lineNo, ch: length - 1}, {line: lineNo, ch: length});
+                    length = line.text.length
+                    cm.replaceRange('', {line: lineNo, ch: length - 1}, {line: lineNo, ch: length});
                 } else {
                     cm.indentLine(line.lineNo(), "smart");
                 }

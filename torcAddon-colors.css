@@ -1,0 +1,9 @@
+.torc-color {
+    width: 11px;
+    height: 11px;
+    margin-top: 3px;
+    margin-left: 3px;
+    border-radius: 50%;
+    position: absolute;
+    display: inline-block;
+}
