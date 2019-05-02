@@ -1,5 +1,5 @@
 /*
- * torcAddons-pasteAndIndent | v1.0.0
+ * torcAddons-pasteAndIndent | v1.0.1
  * automatically correctly indents pasted lines
  * by torcado
  */

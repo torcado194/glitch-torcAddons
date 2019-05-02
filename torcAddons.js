@@ -31,7 +31,6 @@ let treeObserver = new MutationObserver(function(mutations) {
     }
     mutations.forEach(function(mutation) {
         if(mutation.addedNodes && mutation.addedNodes.length > 0) {
-            console.log(mutation.addedNodes);
             let newFile = false;
             mutation.addedNodes.forEach(n => {
                 if($(n).attr('torc-file') === undefined){
@@ -105,3 +104,4 @@ function handleFileSelect(doc){
 function watchChanges(doc){
     application.getCurrentSession().cm.on('change', (cm, change) => t.dispatchEvent(new CustomEvent('fileEdit', {detail: {cm, change}})));
 }
+
