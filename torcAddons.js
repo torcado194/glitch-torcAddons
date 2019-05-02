@@ -4,7 +4,7 @@
  * by torcado
  */
 var torcAddons = torcAddons || new EventTarget();
-let	t = torcAddons;
+let t = torcAddons;
 
 t.loaded = false;
 
@@ -81,14 +81,20 @@ window.addEventListener('load', (event) => {
         
         application.projectIsLoaded.observe(() => {
             
-            $('body').addClass(application.currentTheme());
-            
-            setTimeout(function(){
-                application.selectedFile.observe(handleFileSelect);
-                watchChanges();
-                t.loaded = true;
-                t.dispatchEvent(new CustomEvent('load'))
-            }, 5);
+            if(!t.loaded){
+                
+                console.log('%ctorcAddons loaded!', 'color: #eb1f76');
+                
+                $('body').addClass(application.currentTheme());
+                
+                setTimeout(function(){
+                    application.selectedFile.observe(handleFileSelect);
+                    watchChanges();
+                    t.loaded = true;
+                    t.dispatchEvent(new CustomEvent('load'))
+                }, 5);
+                
+            }
             
         });
         //application.selectedFile.observe(changeFile)
