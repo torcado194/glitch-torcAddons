@@ -1,5 +1,5 @@
 /*
- * torcAddons | v1.2.2
+ * torcAddons | v1.2.3
  * a base driver for glitch.com addons
  * by torcado
  */
@@ -88,7 +88,7 @@ window.addEventListener('load', (event) => {
                 $('body').addClass(application.currentTheme());
                 
                 setTimeout(function(){
-                    application.selectedFile.observe(handleFileSelect);
+                    application.selectedFileId.observe(handleFileSelect);
                     watchChanges();
                     t.loaded = true;
                     t.dispatchEvent(new CustomEvent('load'))
@@ -101,9 +101,9 @@ window.addEventListener('load', (event) => {
     }, 5);
 });
 
-function handleFileSelect(doc){
+function handleFileSelect(docId){
     doc.session.then(io => {
-        t.dispatchEvent(new CustomEvent('fileSelect', {detail: {doc, io}}))
+        t.dispatchEvent(new CustomEvent('fileSelect', {detail: {docId, io}}))
     });
 }
 
