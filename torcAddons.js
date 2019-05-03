@@ -1,5 +1,5 @@
 /*
- * torcAddons | v1.2.3
+ * torcAddons | v1.2.4
  * a base driver for glitch.com addons
  * by torcado
  */
@@ -102,7 +102,7 @@ window.addEventListener('load', (event) => {
 });
 
 function handleFileSelect(docId){
-    doc.session.then(io => {
+    application.selectedFile().session.then(io => {
         t.dispatchEvent(new CustomEvent('fileSelect', {detail: {docId, io}}))
     });
 }
