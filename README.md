@@ -41,5 +41,4 @@ for every addon, the base driver script `torcAddons.js` must also exist, and mus
 
 ![wrapSelection.gif](https://i.imgur.com/DNTErVJ.gif)
 
-
 ------
