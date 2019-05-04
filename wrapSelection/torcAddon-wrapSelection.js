@@ -1,6 +1,6 @@
 /*
  * torcAddons-wrapSelection | v1.0.3
- * allows certain characters to wrap selections rather than replace the selection
+ * allows certain characters to wrap selections rather than replace the selection, such as (parentheses)
  * by torcado
  */
 (()=>{

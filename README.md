@@ -36,6 +36,12 @@ for every addon, the base driver script `torcAddons.js` must also exist, and mus
 ![colors.gif](https://i.imgur.com/GojAx2g.gif)
 
 
+### wrapSelection
+> allows certain characters to wrap selections rather than replace the selection, such as (parentheses)
+
+![wrapSelection.gif](https://i.imgur.com/DNTErVJ.gif)
+
+
 ------
 
 note: if the filetree or anything else gets messed up, just refresh the page. this will probably be fixed in the future
