@@ -1,5 +1,5 @@
 /*
- * torcAddons-wrapSelection | v1.0.2
+ * torcAddons-wrapSelection | v1.0.3
  * allows certain characters to wrap selections rather than replace the selection
  * by torcado
  */
@@ -50,9 +50,10 @@
         cm.operation(function () {
             let i = 0;
             let text = change.removed[i++],
-                endText =  cm.getLine(from).slice(change.from.ch+1);
+                start = change.from.ch,
+                endText =  cm.getLine(from).slice(start+1);
             if(change.removed.length > 1){
-                cm.replaceRange(text, {line: from, ch: change.from.ch+1}, {line: from, ch: change.from.ch+1+endText.length});
+                cm.replaceRange(text, {line: from, ch: start+1}, {line: from, ch: start+1+endText.length});
                 
                 for(; i < change.removed.length; i++){
                     let ch = cm.getLine(from + (i-1)).length+1;
@@ -62,10 +63,10 @@
                 let ch = change.removed[i-1].length;
                 cm.replaceRange(endChar + endText, {line: from + (i-1), ch});
                 
-                cm.setSelection({line: from, ch: change.from.ch+1}, {line: from + (i-1), ch: change.removed[i-1].length});
+                cm.setSelection({line: from, ch: start+1}, {line: from + (i-1), ch: change.removed[i-1].length});
             } else {
-                cm.replaceRange(text + endChar, {line: from, ch: change.from.ch+1});
-                cm.setSelection({line: from, ch: change.from.ch+1}, {line: from, ch: change.from.ch+1+change.removed[0].length});
+                cm.replaceRange(text + endChar, {line: from, ch: start+1});
+                cm.setSelection({line: from, ch: start+1}, {line: from, ch: start+1+change.removed[0].length});
             }
         });
     }
