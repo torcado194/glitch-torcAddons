@@ -2,7 +2,7 @@
 // @name         torcAddons
 // @namespace    http://torcado.com
 // @description  a base driver for glitch.com addons
-// @version      1.2.4
+// @version      1.3.0
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -13,7 +13,7 @@
 
 
 /*
- * torcAddons | v1.2.4
+ * torcAddons | v1.3.0
  * a base driver for glitch.com addons
  * by torcado
  */
