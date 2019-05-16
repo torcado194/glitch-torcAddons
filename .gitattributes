@@ -1,0 +1,2 @@
+*.js filter=trimWhitespace
+*.css filter=trimWhitespace
