@@ -1,5 +1,19 @@
+// ==UserScript==
+// @name         torcAddons-colors
+// @namespace    http://torcado.com
+// @description  adds a visual color component next to css-colors
+// @version      1.1.0
+// @author       torcado
+// @license      MIT
+// @icon         http://torcado.com/torcAddons/icon.png
+// @run-at       document-start
+// @grant        none
+// @match        http*://glitch.com/edit/*
+// ==/UserScript==
+
+
 /*
- * torcAddons-colors | v1.0.2
+ * torcAddons-colors | v1.1.0
  * adds a visual color component next to css-colors
  * by torcado
  */
@@ -28,4 +42,19 @@
             }
         })
     }
+    
+    /* ======== css ======== */
+    
+    t.addCSS(`
+.torc-color {
+    width: 11px;
+    height: 11px;
+    margin-top: 3px;
+    margin-left: 3px;
+    border-radius: 50%;
+    position: absolute;
+    display: inline-block;
+}
+    `);
+    
 })()

@@ -1,5 +1,19 @@
+// ==UserScript==
+// @name         torcAddons-wrapSelection
+// @namespace    http://torcado.com
+// @description  allows certain characters to wrap selections rather than replace the selection, such as (parentheses)
+// @version      1.1.0
+// @author       torcado
+// @license      MIT
+// @icon         http://torcado.com/torcAddons/icon.png
+// @run-at       document-start
+// @grant        none
+// @match        http*://glitch.com/edit/*
+// ==/UserScript==
+
+
 /*
- * torcAddons-wrapSelection | v1.0.3
+ * torcAddons-wrapSelection | v1.1.0
  * allows certain characters to wrap selections rather than replace the selection, such as (parentheses)
  * by torcado
  */

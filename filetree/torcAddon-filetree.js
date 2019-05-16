@@ -1,8 +1,23 @@
+// ==UserScript==
+// @name         torcAddons-filetree
+// @namespace    http://torcado.com
+// @description  turns the glitch file navigator into a (real) file tree, also adding a searchbar
+// @version      1.1.0
+// @author       torcado
+// @license      MIT
+// @icon         http://torcado.com/torcAddons/icon.png
+// @run-at       document-start
+// @grant        none
+// @match        http*://glitch.com/edit/*
+// ==/UserScript==
+
+
 /*
- * torcAddons-filetree | v1.0.1
+ * torcAddons-filetree | v1.1.0
  * turns the glitch file navigator into a (real) file tree, also adding a searchbar
  * by torcado
  */
+
 (()=>{
     let t = torcAddons;
     
@@ -131,4 +146,113 @@
             }
         });
     }
+    
+    /* ======== css ======== */
+    
+    t.addCSS(`
+.filetree.torc-tree {
+    padding-left: 4px;
+    padding-bottom: 80px !important;
+}
+
+.torc-tree .dir {
+    border-left: 1px dashed rgba(255,255,255,0.25);
+    margin-left: 12px;
+    padding-left: 4px;
+    padding-top: 0px;
+    overflow: hidden;
+    margin-top: 22px;
+    /* transition-duration: 0.25s; */
+}
+.sugar .torc-tree .dir {
+    border-left: 1px dashed rgba(0, 0, 0, 0.3);
+}
+
+.torc-tree .dir.hide {
+    /*height: 0 !important;*/
+}
+
+.torc-tree .folder-path{
+    display: none;
+}
+
+.torc-tree .collapse {
+    margin-left: -8px;
+    /* background-color: #160f19; */
+    margin-top: -24px;
+    margin-bottom: -3px;
+    padding-bottom: 3px;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    position: absolute;
+    padding-top: 5px;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.25s;
+}
+.sugar .torc-tree .collapse {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.hide .dir .collapse {
+    opacity: 0;
+}
+
+
+.dir.hide>.collapse:after {
+    content: "...";
+    position: absolute;
+    right: -16px;
+    top: 1px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* search */
+
+.torc-search {
+    height: 20px;
+    width: calc(100% - 20px);
+    border: 1px solid #666666;
+    margin: 0px 10px 2px;
+    border-radius: 10px;
+    background-color: initial;
+    padding: 8px;
+    position: relative;
+}
+
+.filetree.torc-tree .filetree-child.file {
+    transition: 0.25s ease-out;
+    transition-property: opacity, height;
+    height: 19px;
+    opacity: 1;
+}
+
+.file[torc-searchHide] {
+    height: 0 !important;
+    opacity: 0 !important;
+}
+
+.torc-searchHighlight {
+    color: #ff5288;
+}
+
+/* overrides */
+
+.filetree.filetree {
+    padding-bottom: 0;
+}
+
+.filetree .filetree-child .current-users {
+    position: absolute !important;
+    left: -4px !important;
+    height: 20px !important;
+}
+
+.filetree .filetree-child {
+    /*position: initial !important;*/
+}
+    `);
+    
 })()

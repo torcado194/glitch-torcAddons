@@ -1,5 +1,19 @@
+// ==UserScript==
+// @name         torcAddons-pasteAndIndent
+// @namespace    http://torcado.com
+// @description  automatically correctly indents pasted lines
+// @version      1.1.0
+// @author       torcado
+// @license      MIT
+// @icon         http://torcado.com/torcAddons/icon.png
+// @run-at       document-start
+// @grant        none
+// @match        http*://glitch.com/edit/*
+// ==/UserScript==
+
+
 /*
- * torcAddons-pasteAndIndent | v1.0.1
+ * torcAddons-pasteAndIndent | v1.1.0
  * automatically correctly indents pasted lines
  * by torcado
  */
@@ -53,5 +67,23 @@
             });
         });
     }
+    
+    /* ======== css ======== */
+    
+    t.addCSS(`
+.torc-indentGuideGroup {
+    position: absolute;
+    width: 100%;
+    display: block;
+    white-space: pre;
+    padding-left: 10px;
+}
+
+.torc-indentGuide {
+    border-left: 1px dotted rgba(255,255,255,0.2);
+    margin-left: -1px;
+    position: relative;
+}
+    `);
     
 })()
