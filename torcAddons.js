@@ -22,9 +22,7 @@ var torcAddons = torcAddons || new EventTarget();
 window.torcAddons = torcAddons;
 
 
-(function() { 
-    'test';
-    
+(function() {
     let t = torcAddons;
     
     t.loaded = false;
@@ -78,7 +76,7 @@ window.torcAddons = torcAddons;
     
     t.addCSS = (css) => {
         let head = document.getElementsByTagName('head')[0] || document.getElementsByTagName('html')[0];
-        if (!head) { 
+        if (!head) {
             return;
         }
         let style = document.createElement('style');
