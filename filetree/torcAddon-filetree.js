@@ -2,7 +2,7 @@
 // @name         torcAddons-filetree
 // @namespace    http://torcado.com
 // @description  turns the glitch file navigator into a (real) file tree, also adding a searchbar
-// @version      1.1.0
+// @version      1.1.2
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -13,26 +13,26 @@
 
 
 /*
- * torcAddons-filetree | v1.1.0
+ * torcAddons-filetree | v1.1.2
  * turns the glitch file navigator into a (real) file tree, also adding a searchbar
  * by torcado
  */
 
 (()=>{
     let t = torcAddons;
-    
+
     t.addEventListener('load', ()=>{
         compileTree();
         addSearch();
     })
-    
+
     t.addEventListener('treeUpdate', ()=>{
         compileTree();
     })
-    
+
     t.fileTree = [];
     t.fileList = [];
-    
+
     function compileTree(){
         console.log('aa');
         $('.torc-tree').remove();
@@ -59,9 +59,9 @@
                 }
             }
         });
-        
+
         let treeEl = $('<div class="filetree torc-tree"></div>').appendTo($('.files').eq(0));
-        
+
         function add(dir, el){
             let cursor = dir,
                 cursorEl = el;
@@ -69,7 +69,7 @@
                 let name = Object.keys(cursor)[0],
                     sub = Object.values(cursor)[0];
                 cursorEl = $(`<div class="dir" name="${name}"><div class="collapse">/${name}</div></div>`).appendTo(cursorEl);
-                
+
                 cursorEl.find('.collapse').click(function(e){
                     if(e.target !== this){
                         return;
@@ -95,7 +95,7 @@
                             }
                         });
                     }
-                    
+
                     e.stopPropagation();
                 });
                 sub.forEach(v => add(v, cursorEl));
@@ -103,52 +103,52 @@
                 cursorEl.append(cursor);
             }
         }
-        
+
         t.fileTree.forEach(dir => {
             add(dir, treeEl);
         });
     }
-    
+
     function addSearch(){
         $('.torc-search').remove();
         let searchBar = $('<input class="torc-search">').insertAfter($('.filetree:not(.torc-tree)'));
-        
-        searchBar.on('input', function() { 
+
+        searchBar.on('input', function() {
             if(searchBar[0].value.length > 0){
                 let search = searchBar[0].value,
                     show = t.fileList.filter(v => v.name.includes(search));
                 hide = t.fileList.filter(v => !v.name.includes(search));
-                
+
                 show.forEach(v => {
                     v.el.removeAttr('torc-searchHide', '');
-                    
+
                     let el = v.el.find('.filename'),
                         text = el.text();
-                    
+
                     let s = text.split(new RegExp(`(${search})`));
-                    
+
                     el.html(`${s[0]}<span class="torc-searchHighlight">${s[1]}</span>${s.slice(2).join('')}`);
                 });
                 hide.forEach(v => {
                     v.el.attr('torc-searchHide', '');
-                    
+
                     let el = v.el.find('.filename');
                     el.html(v.name);
                 });
-                
+
             } else {
                 t.fileList.forEach(v => {
                     v.el.removeAttr('torc-searchHide', '');
-                    
+
                     let el = v.el.find('.filename');
                     el.html(v.name);
                 });
             }
         });
     }
-    
+
     /* ======== css ======== */
-    
+
     t.addCSS(`
 .filetree.torc-tree {
     padding-left: 4px;
@@ -254,5 +254,5 @@
     /*position: initial !important;*/
 }
     `);
-    
+
 })()

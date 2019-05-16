@@ -2,7 +2,7 @@
 // @name         torcAddons-indentGuides
 // @namespace    http://torcado.com
 // @description  adds indent guides to glitch code
-// @version      1.1.0
+// @version      1.1.1
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -13,17 +13,17 @@
 
 
 /*
- * torcAddons-indentGuides | v1.1.0
+ * torcAddons-indentGuides | v1.1.1
  * adds indent guides to glitch code
  * by torcado
  */
 (()=>{
     let t = torcAddons;
-    
+
     t.addEventListener('codeUpdate', ()=>{
         addGuides();
     })
-    
+
     function addGuides(){
         $('.torc-indentGuide').remove();
         $('span[role="presentation"]').each(function(){
@@ -35,9 +35,9 @@
             }
         });
     }
-    
+
     /* ======== css ======== */
-    
+
     t.addCSS(`
 .torc-indentGuideGroup {
     position: absolute;
@@ -53,5 +53,5 @@
     position: relative;
 }
     `);
-    
+
 })()

@@ -2,7 +2,7 @@
 // @name         torcAddons-favorite
 // @namespace    http://torcado.com
 // @description  adds the ability to favorite files to pin them to the top of the file list
-// @version      1.1.0
+// @version      1.1.1
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -13,26 +13,26 @@
 
 
 /*
- * torcAddons-favorite | v1.1.0
+ * torcAddons-favorite | v1.1.1
  * adds the ability to favorite files to pin them to the top of the file list
  * by torcado
  */
 (()=>{
     let t = torcAddons;
-    
+
     let project = '';
-    
+
     t.addEventListener('load', ()=>{
         project = window.location.href.match(/#!\/((?:[^?]|.)+)/)[1];
         setFavorites();
         addStars();
     });
-    
+
     t.addEventListener('treeUpdate', ()=>{
         setFavorites();
         addStars();
     });
-    
+
     function setFavorites(){
         $('.torc-favoritesList').remove();
         let favsList = {},
@@ -50,7 +50,7 @@
             el.click(function(){application.selectFileByPathOrDefaultFile(v)});
         });
     }
-    
+
     function addFavorite(el){
         el = el.clone().attr('torc-file', '').removeClass('active');
         el.click(function(){application.selectFileByPathOrDefaultFile($(this).attr('title'))});
@@ -64,7 +64,7 @@
             opacity: 1,
         }, 350, 'easeOutQuint');
     }
-    
+
     function removeFavorite(el){
         let file = $('.torc-favoritesList').find(`.file[title="${el.attr('title')}"]`);
         file.animate({
@@ -77,11 +77,11 @@
             $(this).remove();
         });
     }
-    
+
     function addStars(){
         $('.torc-favstar').remove();
         $('.filetree .file').append('<div class="torc-favstar"></div>');
-        
+
         let favs = JSON.parse(localStorage.getItem('favorites'));
         $('.file').each(function(){
             if(favs && favs[project] && favs[project].includes($(this).attr('title'))){
@@ -90,10 +90,10 @@
                 $(this).removeAttr('torc-favorited');
             }
         });
-        
+
         $('.torc-favstar').on('click', handleStarClick);
     }
-    
+
     function handleStarClick(e){
         e.stopPropagation();
         let el = $(this).closest('.file')
@@ -117,9 +117,9 @@
         addStars();
         //setFavorites();
     }
-    
+
     /* ======== css ======== */
-    
+
     t.addCSS(`
 .torc-favoritesList.torc-favoritesList {
     margin-top: 10px;
@@ -182,5 +182,5 @@
     opacity: 0.6 !important;
 }
     `);
-    
+
 })()

@@ -2,7 +2,7 @@
 // @name         torcAddons-colors
 // @namespace    http://torcado.com
 // @description  adds a visual color component next to css-colors
-// @version      1.1.0
+// @version      1.1.1
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -13,22 +13,22 @@
 
 
 /*
- * torcAddons-colors | v1.1.0
+ * torcAddons-colors | v1.1.1
  * adds a visual color component next to css-colors
  * by torcado
  */
 (()=>{
     let t = torcAddons;
-    
+
     t.addEventListener('codeUpdate', addColors);
-    
+
     let matchList = [
         /#([0-9a-f]{8}|[0-9a-f]{6}|[0-9a-f]{4}|[0-9a-f]{3}|)/ig, // hex
         /(rgba|rgb)\([^)]+\)/ig,
         /(hsla|hsl)\([^)]+\)/ig,
         /(hsva|hsv)\([^)]+\)/ig
     ];
-    
+
     function addColors(){
         // NOTE: this could instead be pulled from application.getCurrentSession().cm.display.view
         $('.torc-color').remove();
@@ -42,9 +42,9 @@
             }
         })
     }
-    
+
     /* ======== css ======== */
-    
+
     t.addCSS(`
 .torc-color {
     width: 11px;
@@ -56,5 +56,5 @@
     display: inline-block;
 }
     `);
-    
+
 })()

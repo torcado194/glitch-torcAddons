@@ -2,7 +2,7 @@
 // @name         torcAddons-pasteAndIndent
 // @namespace    http://torcado.com
 // @description  automatically correctly indents pasted lines
-// @version      1.1.0
+// @version      1.1.1
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -13,43 +13,43 @@
 
 
 /*
- * torcAddons-pasteAndIndent | v1.1.0
+ * torcAddons-pasteAndIndent | v1.1.1
  * automatically correctly indents pasted lines
  * by torcado
  */
 (()=>{
     let t = torcAddons;
-    
+
     let shift = false;
-    
+
     t.addEventListener('load', ()=>{
         $(document).on('keydown', down);
         $(document).on('keyup', up);
     });
-    
+
     t.addEventListener('fileEdit', e => {
         handleChange(e.detail.cm, e.detail.change)
     });
-    
+
     function down(e){
         if(e.shiftKey) shift = true;
     }
     function up(e){
         if(!e.shiftKey) shift = false;
     }
-    
-    
+
+
     function handleChange(cm, change){
         if (shift || change.origin !== "paste") {
             return;
         }
-        
+
         let from = change.from.line,
             to = change.from.line + change.text.length;
-        
+
         indentLines(cm, from, to);
     }
-    
+
     function indentLines(cm, from, to){
         cm.operation(function () {
             cm.eachLine(from, to, (line) => {
@@ -67,9 +67,9 @@
             });
         });
     }
-    
+
     /* ======== css ======== */
-    
+
     t.addCSS(`
 .torc-indentGuideGroup {
     position: absolute;
@@ -85,5 +85,5 @@
     position: relative;
 }
     `);
-    
+
 })()
