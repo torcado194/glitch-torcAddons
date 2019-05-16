@@ -22,10 +22,10 @@ var torcAddons = torcAddons || new EventTarget();
 window.torcAddons = torcAddons;
 
 
+
+
 (function() {
     let t = torcAddons;
-    
-    "test";
     
     t.loaded = false;
     
