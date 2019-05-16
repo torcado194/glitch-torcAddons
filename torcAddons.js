@@ -21,14 +21,11 @@
 var torcAddons = torcAddons || new EventTarget();
 window.torcAddons = torcAddons;
 
-
-
-
 (function() {
     let t = torcAddons;
-    
+
     t.loaded = false;
-    
+
     t.debounce = (func, wait, immediate) => {
         let timeout;
         return function() {
@@ -43,9 +40,9 @@ window.torcAddons = torcAddons;
             if (callNow) func.apply(context, args);
         }
     }
-    
+
     let treeUpdateDebounce = t.debounce(()=>t.dispatchEvent(new CustomEvent('treeUpdate')), 5, true);
-    
+
     let treeObserver = new MutationObserver(function(mutations) {
         if(!t.loaded){
             return;
@@ -65,9 +62,9 @@ window.torcAddons = torcAddons;
             }
         });
     });
-    
+
     //let codeUpdateDebounce = t.debounce(()=>, 5, true);
-    
+
     let codeObserver = new MutationObserver(function(mutations) {
         if(!t.loaded){
             return;
@@ -75,7 +72,7 @@ window.torcAddons = torcAddons;
         //codeUpdateDebounce();
         t.dispatchEvent(new CustomEvent('codeUpdate'))
     });
-    
+
     t.addCSS = (css) => {
         let head = document.getElementsByTagName('head')[0] || document.getElementsByTagName('html')[0];
         if (!head) {
@@ -86,8 +83,8 @@ window.torcAddons = torcAddons;
         style.innerHTML = css;
         head.appendChild(style);
     }
-    
-    
+
+
     window.addEventListener('load', (event) => {
         $.extend($.easing, {
             easeInQuint: function (x, t, b, c, d) {
@@ -98,7 +95,7 @@ window.torcAddons = torcAddons;
             },
         });
         setTimeout(function(){
-            
+
             let treeConfig = {
                 attributes: true,
                 childList: true,
@@ -110,35 +107,35 @@ window.torcAddons = torcAddons;
                 childList: false,
             };
             codeObserver.observe($('.CodeMirror-sizer').eq(0)[0], codeConfig);
-            
+
             application.projectIsLoaded.observe(() => {
-                
+
                 if(!t.loaded){
-                    
+
                     console.log('%ctorcAddons loaded!', 'color: #eb1f76');
-                    
+
                     $('body').addClass(application.currentTheme());
-                    
+
                     setTimeout(function(){
                         application.selectedFileId.observe(handleFileSelect);
                         watchChanges();
                         t.loaded = true;
                         t.dispatchEvent(new CustomEvent('load'))
                     }, 5);
-                    
+
                 }
-                
+
             });
             //application.selectedFile.observe(changeFile)
         }, 5);
     });
-    
+
     function handleFileSelect(docId){
         application.selectedFile().session.then(io => {
             t.dispatchEvent(new CustomEvent('fileSelect', {detail: {docId, io}}))
         });
     }
-    
+
     function watchChanges(doc){
         application.getCurrentSession().cm.on('change', (cm, change) => t.dispatchEvent(new CustomEvent('fileEdit', {detail: {cm, change}})));
     }
