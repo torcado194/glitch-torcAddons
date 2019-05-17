@@ -9,6 +9,8 @@
 // @run-at       document-start
 // @grant        none
 // @include      http*://glitch.com/edit/*
+// @updateURL    https://openuserjs.org/meta/torcado/torcAddons.meta.js
+// @downloadURL  https://openuserjs.org/src/scripts/torcado/torcAddons.user.js
 // ==/UserScript==
 
 
