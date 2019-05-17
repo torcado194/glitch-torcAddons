@@ -7,7 +7,7 @@ to use any or all features, install a code injection/userscript extension such a
 for every addon, the base driver script `torcAddons.js` must also exist, and must be run prior to the other scripts.
 
 
-**all of the scripts have been updated to comply with the UserScript format**
+#### all of the scripts have been updated to comply with the UserScript format
 
 if you are using a UserScript extension, you can install the scripts here: https://openuserjs.org/users/torcado/scripts
 
