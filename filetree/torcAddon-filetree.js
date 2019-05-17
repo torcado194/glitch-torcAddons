@@ -8,7 +8,7 @@
 // @icon         http://torcado.com/torcAddons/icon.png
 // @run-at       document-start
 // @grant        none
-// @match        http*://glitch.com/edit/*
+// @include      http*://glitch.com/edit/*
 // ==/UserScript==
 
 
