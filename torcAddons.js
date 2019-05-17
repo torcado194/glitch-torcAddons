@@ -25,6 +25,7 @@ window.torcAddons = torcAddons;
 
 (function() {
     let t = torcAddons;
+    t.version = '1.3.2';
 
     t.loaded = false;
 
@@ -114,7 +115,7 @@ window.torcAddons = torcAddons;
 
                 if(!t.loaded){
 
-                    console.log('%ctorcAddons loaded!', 'color: #eb1f76');
+                    console.log(`%ctorcAddons %cv${t.version} %cloaded!`, 'color: #1abce2', 'color: #f5b908', 'color: #1abce2');
 
                     $('body').addClass(application.currentTheme());
 
