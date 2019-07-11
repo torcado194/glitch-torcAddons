@@ -2,7 +2,7 @@
 // @name         torcAddons-treeState
 // @namespace    http://torcado.com
 // @description  saves the state of the filetree across loads
-// @version      1.0.1
+// @version      1.0.2
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -17,23 +17,31 @@
     let t = torcAddons;
 
     t.addEventListener('load', ()=>{
-        console.log("sdfsdf");
         load();
         update();
         listen();
     });
 
-    t.treeState = [];
+    t.treeState = {};
+    t.curTreeState = [];
+    t.projectName = '';
 
     let ignore = true;
 
     function load(){
-        t.treeState = JSON.parse(localStorage.getItem('treeState')) || [];
+        t.treeState = JSON.parse(localStorage.getItem('treeState')) || {};
+        t.projectName = application.projectName();
+        if(t.treeState[t.projectName]){
+            t.curTreeState = t.treeState[t.projectName];
+        } else {
+            t.treeState[t.projectName] = [];
+            t.curTreeState = t.treeState[t.projectName];
+        }
     }
 
     function update(){
-        if(t.treeState && Array.isArray(t.treeState)){
-            t.treeState.forEach(tree => {
+        if(t.curTreeState && Array.isArray(t.curTreeState)){
+            t.curTreeState.forEach(tree => {
                 let cur = $('.filetree');
                 tree.forEach(folder => {
                     if(cur.length === 0){
@@ -59,7 +67,6 @@
                     if(ignore){
                         return;
                     }
-                    console.log('o/c', mutation.target);
                     let folder = $(mutation.target).closest('.folder'),
                         name = folder.attr('title'),
                         id = $(mutation.target).find('summary').attr('data-id');
@@ -83,12 +90,13 @@
                     path = path.reverse();
 
                     if($(mutation.target).attr('open')){
-                        //TODO: if not there already
-                        t.treeState.push(path);
+                        if(!t.curTreeState.some(f => (f.length === path.length && f.every((v, i) => path[i] === v)))){
+                            t.curTreeState.push(path);
+                        }
                     } else {
-                        t.treeState = t.treeState.filter(f => !(f.length === path.length && f.every((v, i) => path[i] === v)));
+                        t.curTreeState = t.curTreeState.filter(f => !(f.length === path.length && f.every((v, i) => path[i] === v)));
                     }
-                    console.log(t.treeState);
+                    t.treeState[t.projectName] = t.curTreeState;
                     localStorage.setItem('treeState', JSON.stringify(t.treeState));
                 }
             });

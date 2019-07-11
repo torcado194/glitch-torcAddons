@@ -77,4 +77,8 @@ additionally, these scripts will auto-update as i push fixes and features to thi
 }
 ```
 
+### treeState
+[UserScript download](https://openuserjs.org/src/scripts/torcado/torcAddons-treeState.user.js)
+> saves the state of the filetree across loads
+
 ------
