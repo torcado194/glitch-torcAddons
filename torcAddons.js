@@ -2,7 +2,7 @@
 // @name         torcAddons
 // @namespace    http://torcado.com
 // @description  a base driver for glitch.com addons
-// @version      1.3.2
+// @version      1.3.3
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons | v1.3.2
+ * torcAddons | v1.3.3
  * a base driver for glitch.com addons
  * by torcado
  */
@@ -25,9 +25,10 @@ window.torcAddons = torcAddons;
 
 (function() {
     let t = torcAddons;
-    t.version = '1.3.2';
+    t.version = '1.3.3';
 
     t.loaded = false;
+    t.loadingFile = true;
 
     t.debounce = (func, wait, immediate) => {
         let timeout;
@@ -76,6 +77,26 @@ window.torcAddons = torcAddons;
         t.dispatchEvent(new CustomEvent('codeUpdate'))
     });
 
+    let codeLoadObserver = new MutationObserver(function(mutations) {
+        if(!t.loaded){
+            return;
+        }
+        mutations.forEach(function(mutation) {
+            if(mutation.addedNodes && mutation.addedNodes.length > 0) {
+                mutation.addedNodes.forEach(n => {
+                    if(n.classList.contains('CodeMirror-gutter-wrapper')){
+                        if(t.loadingFile){
+                            t.loadingFile = false;
+                            //setTimeout(()=>{
+                            t.dispatchEvent(new CustomEvent('fileLoaded'))
+                            //},5);
+                        }
+                    }
+                });
+            }
+        });
+    });
+
     t.addCSS = (css) => {
         let head = document.getElementsByTagName('head')[0] || document.getElementsByTagName('html')[0];
         if (!head) {
@@ -110,6 +131,12 @@ window.torcAddons = torcAddons;
                 childList: false,
             };
             codeObserver.observe($('.CodeMirror-sizer').eq(0)[0], codeConfig);
+            let codeLoadConfig = {
+                attributes: true,
+                childList: true,
+                subtree: true
+            };
+            codeLoadObserver.observe($('.CodeMirror-sizer').eq(0)[0], codeLoadConfig);
 
             application.projectIsLoaded.observe(() => {
 
@@ -134,6 +161,7 @@ window.torcAddons = torcAddons;
     });
 
     function handleFileSelect(docId){
+        t.loadingFile = true;
         application.selectedFile().session.then(io => {
             t.dispatchEvent(new CustomEvent('fileSelect', {detail: {docId, io}}))
         });
