@@ -2,7 +2,7 @@
 // @name         torcAddons
 // @namespace    http://torcado.com
 // @description  a base driver for glitch.com addons
-// @version      1.3.3
+// @version      1.3.4
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons | v1.3.3
+ * torcAddons | v1.3.4
  * a base driver for glitch.com addons
  * by torcado
  */
@@ -84,7 +84,7 @@ window.torcAddons = torcAddons;
         mutations.forEach(function(mutation) {
             if(mutation.addedNodes && mutation.addedNodes.length > 0) {
                 mutation.addedNodes.forEach(n => {
-                    if(n.classList.contains('CodeMirror-gutter-wrapper')){
+                    if(n.classList && n.classList.contains('CodeMirror-gutter-wrapper')){
                         if(t.loadingFile){
                             t.loadingFile = false;
                             //setTimeout(()=>{

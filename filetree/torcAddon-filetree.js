@@ -2,7 +2,7 @@
 // @name         torcAddons-filetree
 // @namespace    http://torcado.com
 // @description  turns the glitch file navigator into a (real) file tree, also adding a searchbar
-// @version      1.1.2
+// @version      1.1.3
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-filetree | v1.1.2
+ * torcAddons-filetree | v1.1.3
  * turns the glitch file navigator into a (real) file tree, also adding a searchbar
  * by torcado
  */
@@ -36,7 +36,6 @@
     t.fileList = [];
 
     function compileTree(){
-        console.log('aa');
         $('.torc-tree').remove();
         t.fileTree = [];
         t.fileList = [];
