@@ -2,7 +2,7 @@
 // @name         torcAddons-collapseState
 // @namespace    http://torcado.com
 // @description  saves the state of collapsible code blocks across loads
-// @version      1.0.2
+// @version      1.0.3
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -107,6 +107,18 @@
 
         localStorage.setItem('collapseState', JSON.stringify(t.collapseState));
     }
+
+    document.addEventListener('keydown', e => {
+        if(e.key === '1' && e.altKey){
+            let cm = application.getCurrentSession().cm,
+                last = cm.lastLine();
+            for(let i = last-1; i >= 0; i--){
+                if(!cm.isFolded({line:i})){
+                    cm.foldCode(i);
+                }
+            }
+        }
+    });
 
     /* ======== css ======== */
 
