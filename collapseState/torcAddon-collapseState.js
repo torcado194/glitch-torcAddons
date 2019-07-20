@@ -2,7 +2,7 @@
 // @name         torcAddons-collapseState
 // @namespace    http://torcado.com
 // @description  saves the state of collapsible code blocks across loads
-// @version      1.0.1
+// @version      1.0.2
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -16,11 +16,23 @@
 (()=>{
     let t = torcAddons;
 
-    let ignore = true;
+    let ignore = true,
+        ignoreUpdate = false;
+
+    let loadedFiles = [];
+
     t.addEventListener('load', ()=>{
         ignore = true;
         load();
         //update();
+    });
+
+    t.addEventListener('fileSelect', ()=>{
+        if(loadedFiles.includes(application.currentDocument())){
+            ignoreUpdate = true;
+        } else {
+            //loadedFiles.push(application.currentDocument());
+        }
     });
 
     let saveDebounce = t.debounce(()=>save(), 20);
@@ -33,6 +45,11 @@
 
     t.fileId = '';
     t.addEventListener('fileLoaded', (e)=>{
+        loadedFiles.push(application.currentDocument());
+        if(ignoreUpdate){
+            ignoreUpdate = false;
+            return;
+        }
         ignore = true;
         update();
     });
@@ -85,7 +102,7 @@
             }
         });
 
-        t.curProjectState[t.fileId] = t.curFileState;
+        t.curProjectState[application.currentDocument()] = t.curFileState;
         t.collapseState[t.projectName] = t.curProjectState;
 
         localStorage.setItem('collapseState', JSON.stringify(t.collapseState));
