@@ -2,7 +2,7 @@
 // @name         torcAddons
 // @namespace    http://torcado.com
 // @description  a base driver for glitch.com addons
-// @version      1.3.4
+// @version      1.3.5
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons | v1.3.4
+ * torcAddons | v1.3.5
  * a base driver for glitch.com addons
  * by torcado
  */
@@ -25,7 +25,7 @@ window.torcAddons = torcAddons;
 
 (function() {
     let t = torcAddons;
-    t.version = '1.3.3';
+    t.version = '1.3.5';
 
     t.loaded = false;
     t.loadingFile = true;
@@ -118,8 +118,13 @@ window.torcAddons = torcAddons;
                 return c*((t=t/d-1)*t*t*t*t + 1) + b;
             },
         });
-        setTimeout(function(){
 
+        let aoInterval = setInterval(obs, 500);
+        function obs(){
+            if(!$('.filetree')[0]){
+                return;
+            }
+            clearInterval(aoInterval);
             let treeConfig = {
                 attributes: true,
                 childList: true,
@@ -138,8 +143,13 @@ window.torcAddons = torcAddons;
             };
             codeLoadObserver.observe($('.CodeMirror-sizer').eq(0)[0], codeLoadConfig);
 
-            application.projectIsLoaded.observe(() => {
+            if(application.projectIsLoaded()){
+                loaded();
+            } else {
+                application.projectIsLoaded.observe(loaded);
+            }
 
+            function loaded(){
                 if(!t.loaded){
 
                     console.log(`%ctorcAddons %cv${t.version} %cloaded!`, 'color: #1abce2', 'color: #f5b908', 'color: #1abce2');
@@ -154,10 +164,10 @@ window.torcAddons = torcAddons;
                     }, 5);
 
                 }
+            }
 
-            });
             //application.selectedFile.observe(changeFile)
-        }, 5);
+        }
     });
 
     function handleFileSelect(docId){
