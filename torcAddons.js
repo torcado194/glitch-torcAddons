@@ -2,7 +2,7 @@
 // @name         torcAddons
 // @namespace    http://torcado.com
 // @description  a base driver for glitch.com addons
-// @version      1.3.5
+// @version      1.3.6
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons | v1.3.5
+ * torcAddons | v1.3.6
  * a base driver for glitch.com addons
  * by torcado
  */
@@ -25,7 +25,7 @@ window.torcAddons = torcAddons;
 
 (function() {
     let t = torcAddons;
-    t.version = '1.3.5';
+    t.version = '1.3.6';
 
     t.loaded = false;
     t.loadingFile = true;
