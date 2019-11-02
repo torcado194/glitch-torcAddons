@@ -121,7 +121,7 @@ window.torcAddons = torcAddons;
 
         let aoInterval = setInterval(obs, 500);
         function obs(){
-            if(!$('.filetree')[0]){
+            if(!$('.filetree')[0] || !$('.CodeMirror-sizer')[0]){
                 return;
             }
             clearInterval(aoInterval);
