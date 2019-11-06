@@ -2,7 +2,7 @@
 // @name         torcAddons-favorite
 // @namespace    http://torcado.com
 // @description  adds the ability to favorite files to pin them to the top of the file list
-// @version      1.1.1
+// @version      1.1.2
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-favorite | v1.1.1
+ * torcAddons-favorite | v1.1.2
  * adds the ability to favorite files to pin them to the top of the file list
  * by torcado
  */
@@ -137,6 +137,10 @@
     border: 1px dotted rgba(0, 0, 0, 0.5);
 }
 
+.torc-favoritesList li.filetree-child {
+    padding-left: 5px !important;
+}
+
 .torc-favoritesTitle {
     margin-left: -10px;
     font-style: italic;
@@ -161,6 +165,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAYAAACohjseAAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAANSSURBVHgB3ZqNcdswDIWhXgdwJygzQdwJqmzQDaIRskHYCZoN0kyQbiBnAjsTUJ0g2eCVMOmrzrUMUKJkqd8dI9/x94kUAJIpaCIAGP8ofXr3aVcURUP/AyzMpxr/UkfRyyWKe0M3nLempeIH7yDjaIn4gVfQY2lJxKXpEgTyUl3RUvCDfUQ6lpZAnL2+GJo7PWfvQE1zxg+wxHBKmitIMyxdzHMWoXMLDqejmmMqmhN+QCvoZm8N3TKel9vwg7lXDPqxVb5WlLd0aRBm7ht0mFY9KUZFzOfZnmYmW2LufHpGmkF5ONGeTajvYp82VXTRJcY/1jFdU9jHGepH49PN8f4v9sGBdt8Z2sW2X+Jv3mO+d5ZGWDY/kMfUt6nO9HmHvGwRAg1z3NEt5G+iD+JWCPlf6IHb9syNRaUQmCP66aLUmuw+WFKCNIOTQk3IDy/1O0oE4Xt0yEzBf2gYjU8bn15JY81koSUF6/01Pg0NIFVgQ0HES/y9GSJGA/66rJKCy0oTDb31TF52YwFdaMi4VF90SxcGwaVpqQ6VfiorXPQcE2E3ol1xD8eVa2VF7sDQxEAXoB94PtUAB9NbZQNuSpFIO4ZkDauuhrQb18lEJoqTx9SjwdH2a6O98ESRWxoJjPnJIM1iWcoM9Hcb/Y1egsjsN0TQz94wt6V9k5QZ6KgoB1BEO5QZWVvG0BHypviNMgP50/isaecD6TBCfkP5aYT8K1KgFSj5ujG2TI2Qb0iBVqBkqV4pP7+FfFWA8ZF0DJ5BhIjHxLY0u/5GyL8mBdoZlBrbdWUgnJrxlRgbIo569r8Rzi9L6kZ6AZ8oF5Cdbnmizl4YZLhMdaL+WqiXL0SE0mQjBMccGGijkDauLRRTuaY4aAkuc488p+MO4SVJAvf9SuMvFALZgp5bDodvJfe2qSHZFRhvrM5aW42RWSnyx9gTGkWZL1IBjUBD80V8sUsXaKQCWj+Yg41PNxSW1RNNhEbgkDiT63736cobA77l5aN+jmIqCsHyUKENDSW6gFTzz+WtxoxHd2DR72bJUA6gP953sWwvq4rg/5yyL0s5wflLyhoZ/8cMcjRktW2Jjv6oY+Mf1icOzfa7Ap+e+NuiEYgvrWr1x9d2v8bqb5H8AW9vAn+6T1ZUAAAAAElFTkSuQmCC');
     background-size: 14px;
     opacity: 0;
+    right: 30px;
 }
 .sugar .torc-favstar {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAYAAACohjseAAAACXBIWXMAACxLAAAsSwGlPZapAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMKSURBVHgB3VrRcdswDH1pO4A7gdEJ4k5QdYNuEI3gDawN2g2cTpBuIGcCJxNIncD97F8qVORF59jGo0QqUt4dTjoTBPgEEiAlv8d4kEa+uevfRv7gjUAaKRt5OpLStc0a0sgBL8l50bYVZowK58l5qTBT5LDJeSkwMwi46HWn6gIzwhY8udlFURBOzotgBugTvW7pmDQy9CfnJcOEUWE4wclGMQdX80pCL8fEoCmeiZ7uWjJCb3JlYwN70NuOPhPFAhOAPmU9ITBrSzr99P4AO4oZRoykJ7Nu5A5hCeXHCXtFQP/K+dQ+GQJIX+E8mZWTa2dU0A91I1/d9dhHhf4RenA27929ysUzpjTyHXFSPZsR15F97dGudTl2dAN7TfSRCjaqBH6fHKf/kEQOrOh5ZAn9q20qZfeRAjyKRGNQbtGN6lRfIxzap4o9nit3MwR1I7tGHkFmMwMZ2uz9xV0FAxBKsEZL4B7PxFK//vMlK0NbsoJJs9mzz7RLhQ24MeuUD6pFN3h96BjY8ea+0y3Z4bXfY67Az7gX28MSPEnB+BDw5O5OGdDFvCcNVBiXpIAvIcrh7P6WPbiOSVIQeUyhBlOe15I9cEHYlEiFpEsmJGMViI+c9D0o6bEkK8QHG73BZSsnHcUG4zNHJDC7ndiw/EXdOgrsdRAb1tJYMkbegYMY7TXiozbaP4EAS9CqdSmOTLXRLiDAErQy1SPi47fRTm0wPoBDjAiqDXFX5tRfG+3XIMBG0DL2cKEtQ3tS0aSx79xvcflboPUAPiIirKKbneijv5Ww073q5Cf6rzDiFpFN2Qs3WHYXcrwbyjs+BSOVpgUxONXZIM7bcU9USL+DYU2VA9K99rd0ltbgmSSzINpTnAmF0PlsKTAEBdOF+WDnTlAsBbYOxsAO7YdQnVY/MSEM+UipyafA6Setv90OsK2SIwIWCM+SnhiTfMTpVggnKIgENoqV0+2bVXPwRAtERnHBWYm4/zHLcXk3VLCGrhAGccaXeD4VaMLYIQ0ytGS9P/1s9yuhv/nhH5mP1SThMrGbAAAAAElFTkSuQmCC');
