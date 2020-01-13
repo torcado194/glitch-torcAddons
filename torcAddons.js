@@ -2,7 +2,7 @@
 // @name         torcAddons
 // @namespace    http://torcado.com
 // @description  a base driver for glitch.com addons
-// @version      1.3.6
+// @version      1.4.0
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons | v1.3.6
+ * torcAddons | v1.4.0
  * a base driver for glitch.com addons
  * by torcado
  */
@@ -25,7 +25,7 @@ window.torcAddons = torcAddons;
 
 (function() {
     let t = torcAddons;
-    t.version = '1.3.6';
+    t.version = '1.4.0';
 
     t.loaded = false;
     t.loadingFile = true;
@@ -67,14 +67,14 @@ window.torcAddons = torcAddons;
         });
     });
 
-    //let codeUpdateDebounce = t.debounce(()=>, 5, true);
+    //let codeUpdateDebounce = t.debounce(()=>t.dispatchEvent(new CustomEvent('codeUpdate')), 0, true);
 
     let codeObserver = new MutationObserver(function(mutations) {
         if(!t.loaded){
             return;
         }
         //codeUpdateDebounce();
-        t.dispatchEvent(new CustomEvent('codeUpdate'))
+        t.dispatchEvent(new CustomEvent('codeUpdate'));
     });
 
     let codeLoadObserver = new MutationObserver(function(mutations) {
@@ -91,6 +91,21 @@ window.torcAddons = torcAddons;
                             t.dispatchEvent(new CustomEvent('fileLoaded'))
                             //},5);
                         }
+                    }
+                });
+            }
+        });
+    });
+
+    let appLoadObserver = new MutationObserver(function(mutations) {
+        if(!t.loaded){
+            return;
+        }
+        mutations.forEach(function(mutation) {
+            if(mutation.addedNodes && mutation.addedNodes.length > 0) {
+                mutation.addedNodes.forEach(n => {
+                    if(n.classList && n.classList.contains('editor-container')){
+                        t.dispatchEvent(new CustomEvent('load'));
                     }
                 });
             }
@@ -119,18 +134,62 @@ window.torcAddons = torcAddons;
             },
         });
 
-        let aoInterval = setInterval(obs, 500);
-        function obs(){
-            if(!$('.filetree')[0] || !$('.CodeMirror-sizer')[0]){
+        let appInterval = setInterval(observeApp, 500),
+            appLoaded = false,
+            treeInterval = setInterval(observeTree, 500),
+            treeLoaded = false,
+            codeInterval = setInterval(observeCode, 500),
+            codeLoaded = false;
+
+        function observeApp(){
+            if(!$('#editor')[0]){
                 return;
             }
-            clearInterval(aoInterval);
+            clearInterval(appInterval);
+            let appConfig = {
+                attributes: true,
+                childList: true,
+                characterData: true
+            };
+            treeObserver.observe($('#editor').eq(0)[0], appConfig);
+
+
+            /*if(application.projectIsLoaded()){
+                loaded();
+            } else {
+                application.projectIsLoaded.observe(loaded);
+            }*/
+
+            //application.selectedFile.observe(changeFile)
+        }
+
+        function observeTree(){
+            if(!$('.filetree')[0]){
+                return;
+            }
+            clearInterval(treeInterval);
             let treeConfig = {
                 attributes: true,
                 childList: true,
                 characterData: true
             };
             treeObserver.observe($('.filetree').eq(0)[0], treeConfig);
+
+
+            if(application.projectIsLoaded()){
+                loaded();
+            } else {
+                application.projectIsLoaded.observe(loaded);
+            }
+
+            //application.selectedFile.observe(changeFile)
+        }
+
+        function observeCode(){
+            if(!$('.CodeMirror-sizer')[0]){
+                return;
+            }
+            clearInterval(codeInterval);
             let codeConfig = {
                 attributes: true,
                 childList: false,
@@ -149,24 +208,24 @@ window.torcAddons = torcAddons;
                 application.projectIsLoaded.observe(loaded);
             }
 
-            function loaded(){
-                if(!t.loaded){
-
-                    console.log(`%ctorcAddons %cv${t.version} %cloaded!`, 'color: #1abce2', 'color: #f5b908', 'color: #1abce2');
-
-                    $('body').addClass(application.currentTheme());
-
-                    setTimeout(function(){
-                        application.selectedFileId.observe(handleFileSelect);
-                        watchChanges();
-                        t.loaded = true;
-                        t.dispatchEvent(new CustomEvent('load'))
-                    }, 5);
-
-                }
-            }
-
             //application.selectedFile.observe(changeFile)
+        }
+
+        function loaded(){
+            if(!t.loaded){
+
+                console.log(`%ctorcAddons %cv${t.version} %cloaded!`, 'color: #1abce2', 'color: #f5b908', 'color: #1abce2');
+
+                $('body').addClass(application.currentTheme());
+
+                t.loaded = true;
+                setTimeout(function(){
+                    application.selectedFileId.observe(handleFileSelect);
+                    watchChanges();
+                    t.dispatchEvent(new CustomEvent('load'))
+                }, 5);
+
+            }
         }
     });
 
