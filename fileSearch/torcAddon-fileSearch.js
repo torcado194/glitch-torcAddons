@@ -2,7 +2,7 @@
 // @name         torcAddons-fileSearch
 // @namespace    http://torcado.com
 // @description  adds a searchbar to the file tree
-// @version      1.0.1
+// @version      1.0.2
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-fileSearch | v1.0.1
+ * torcAddons-fileSearch | v1.0.2
  * adds a searchbar to the file tree
  * by torcado
  */
@@ -72,9 +72,12 @@
         $('.torc-regexToggle').on('click', function(){
             $(this).toggleClass('torc-active');
             regexInput = $(this).hasClass('torc-active');
+            $('.torc-searchInput').focus();
+            updateSearch();
         })
 
-        searchBar.on('input', function() {
+        searchBar.on('input', updateSearch);
+        function updateSearch(){
             if(searchBar[0].value.length > 0){
                 let search = searchBar[0].value,
                     regex,
@@ -121,6 +124,7 @@
                 });
 
             } else {
+                $('.torc-search').removeClass('torc-invalid');
                 t.fileList.forEach(v => {
                     v.el.removeClass('torc-searchHide');
 
@@ -138,7 +142,7 @@
                     $this.removeClass('torc-searchHide');
                 }
             });
-        });
+        };
     }
 
     t.addCSS(`
@@ -206,9 +210,9 @@
 .torc-regexToggle {
     position: absolute;
     right: -9px;
-    top: 0px;
+    top: 1px;
     font-size: 11px;
-    height: 24px;
+    height: 22px;
     width: 30px;
     background-color: #3f4046bf;
     border-radius: 12px;
