@@ -2,7 +2,7 @@
 // @name         torcAddons-favorite
 // @namespace    http://torcado.com
 // @description  adds the ability to favorite files to pin them to the top of the file list
-// @version      1.1.2
+// @version      1.1.3
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-favorite | v1.1.2
+ * torcAddons-favorite | v1.1.3
  * adds the ability to favorite files to pin them to the top of the file list
  * by torcado
  */
@@ -25,7 +25,12 @@
     let project = '';
 
     t.addEventListener('load', ()=>{
-        project = window.location.href.match(/#!\/((?:[^?]|.)+)/)[1];
+        project = window.location.href.match(/#!\/((?:[^?])+)/)[1];
+        setFavorites();
+        addStars();
+    });
+
+    t.addEventListener('reload', ()=>{
         setFavorites();
         addStars();
     });

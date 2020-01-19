@@ -2,7 +2,7 @@
 // @name         torcAddons
 // @namespace    http://torcado.com
 // @description  a base driver for glitch.com addons
-// @version      1.4.0
+// @version      1.4.1
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons | v1.4.0
+ * torcAddons | v1.4.1
  * a base driver for glitch.com addons
  * by torcado
  */
@@ -25,7 +25,7 @@ window.torcAddons = torcAddons;
 
 (function() {
     let t = torcAddons;
-    t.version = '1.4.0';
+    t.version = '1.4.1';
 
     t.loaded = false;
     t.loadingFile = true;
@@ -105,7 +105,7 @@ window.torcAddons = torcAddons;
             if(mutation.addedNodes && mutation.addedNodes.length > 0) {
                 mutation.addedNodes.forEach(n => {
                     if(n.classList && n.classList.contains('editor-container')){
-                        t.dispatchEvent(new CustomEvent('load'));
+                        t.dispatchEvent(new CustomEvent('reload'));
                     }
                 });
             }
@@ -151,7 +151,7 @@ window.torcAddons = torcAddons;
                 childList: true,
                 characterData: true
             };
-            treeObserver.observe($('#editor').eq(0)[0], appConfig);
+            appLoadObserver.observe($('#editor').eq(0)[0], appConfig);
 
 
             /*if(application.projectIsLoaded()){

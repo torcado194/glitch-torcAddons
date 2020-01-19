@@ -2,7 +2,7 @@
 // @name         torcAddons-manualUpdate
 // @namespace    http://torcado.com
 // @description  provides an 'update' button to allow manual updates
-// @version      1.1.1
+// @version      1.1.2
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-manualUpdate | v1.1.1
+ * torcAddons-manualUpdate | v1.1.2
  * provides an 'update' button to allow manual updates
  * by torcado
  */
@@ -23,6 +23,7 @@
     let t = torcAddons;
 
     t.addEventListener('load', ()=>{
+        $('.torc-update').remove();
         let updateButton = $('<div class="torc-update">update</div>').insertAfter($('.show-app-wrapper'));
         updateButton.on('click', function(){
             let updateFile = application.fileByPath('.torc-update')

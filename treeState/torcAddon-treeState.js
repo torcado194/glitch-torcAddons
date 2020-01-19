@@ -2,7 +2,7 @@
 // @name         torcAddons-treeState
 // @namespace    http://torcado.com
 // @description  saves the state of the filetree across loads
-// @version      1.0.2
+// @version      1.0.3
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -20,6 +20,11 @@
         load();
         update();
         listen();
+    });
+
+    t.addEventListener('reload', ()=>{
+        load();
+        update();
     });
 
     t.treeState = {};

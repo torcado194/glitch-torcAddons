@@ -2,7 +2,7 @@
 // @name         torcAddons-fileSearch
 // @namespace    http://torcado.com
 // @description  adds a searchbar to the file tree
-// @version      1.0.2
+// @version      1.0.3
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-fileSearch | v1.0.2
+ * torcAddons-fileSearch | v1.0.3
  * adds a searchbar to the file tree
  * by torcado
  */
@@ -27,11 +27,16 @@
     t.addEventListener('load', ()=>{
         compileTree();
         addSearch();
-    })
+    });
+
+    t.addEventListener('reload', ()=>{
+        compileTree();
+        addSearch();
+    });
 
     t.addEventListener('treeUpdate', ()=>{
         compileTree();
-    })
+    });
 
     t.fileTree = [];
     t.fileList = [];
