@@ -2,7 +2,7 @@
 // @name         torcAddons-fileSearch
 // @namespace    http://torcado.com
 // @description  adds a searchbar to the file tree
-// @version      1.0.3
+// @version      1.0.4
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-fileSearch | v1.0.3
+ * torcAddons-fileSearch | v1.0.4
  * adds a searchbar to the file tree
  * by torcado
  */
@@ -227,7 +227,7 @@
     color: #aaa;
     font-weight: 800;
     cursor: pointer;
-    z-index: 100;
+    z-index: 1;
 }
 
 .torc-regexToggle.torc-active {
