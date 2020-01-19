@@ -19,12 +19,11 @@ additionally, these scripts will auto-update as i push fixes and features to thi
 [UserScript download](https://openuserjs.org/src/scripts/torcado/torcAddons.user.js)
 > sets up common methods and events for the other addons to use.
 
-### filetree
-[UserScript download](https://openuserjs.org/src/scripts/torcado/torcAddons-filetree.user.js)
-> adds a (real) filetree view to the file browser, including directory collapsing.
-> it also comes with a file searchbar, automatically hiding files not matching the search.
+### fileSearch
+[UserScript download](https://openuserjs.org/src/scripts/torcado/torcAddons-fileSearch.user.js)
+> adds a search bar to the filetree to show/hide files. Also supports regex parsing.
 
-![filetree.gif](https://i.imgur.com/EOI9RxD.gif)
+![fileSearch.gif](https://i.imgur.com/hS8vsVD.gif)
 
 
 ### favorite
@@ -82,3 +81,13 @@ additionally, these scripts will auto-update as i push fixes and features to thi
 > saves the state of the filetree across loads
 
 ------
+
+# [Deprecated]
+
+
+### filetree
+[UserScript download](https://openuserjs.org/src/scripts/torcado/torcAddons-filetree.user.js)
+> adds a (real) filetree view to the file browser, including directory collapsing.
+> it also comes with a file searchbar, automatically hiding files not matching the search.
+
+![filetree.gif](https://i.imgur.com/EOI9RxD.gif)
