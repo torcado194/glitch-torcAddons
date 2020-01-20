@@ -2,7 +2,7 @@
 // @name         torcAddons-fileSearch
 // @namespace    http://torcado.com
 // @description  adds a searchbar to the file tree
-// @version      1.0.4
+// @version      1.0.5
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-fileSearch | v1.0.4
+ * torcAddons-fileSearch | v1.0.5
  * adds a searchbar to the file tree
  * by torcado
  */
@@ -240,22 +240,6 @@
 
 .torc-search.torc-invalid .torc-searchInput {
     color: #ff2929;
-}
-
-/* overrides */
-
-.filetree.filetree {
-    padding-bottom: 0;
-}
-
-.filetree .filetree-child .current-users {
-    position: absolute !important;
-    left: -4px !important;
-    height: 20px !important;
-}
-
-.filetree .filetree-child {
-    /*position: initial !important;*/
 }
     `);
 })();
