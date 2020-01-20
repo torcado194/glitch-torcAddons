@@ -2,7 +2,7 @@
 // @name         torcAddons-treeState
 // @namespace    http://torcado.com
 // @description  saves the state of the filetree across loads
-// @version      1.0.3
+// @version      1.0.5
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -47,7 +47,7 @@
     function update(){
         if(t.curTreeState && Array.isArray(t.curTreeState)){
             t.curTreeState.forEach(tree => {
-                let cur = $('.filetree');
+                let cur = $('ul.filetree:not(.torc)');
                 tree.forEach(folder => {
                     if(cur.length === 0){
                         return;
@@ -111,7 +111,7 @@
             childList: true,
             subtree: true
         };
-        treeObserver.observe($('.filetree').eq(0)[0], treeConfig);
+        treeObserver.observe($('ul.filetree:not(.torc)').eq(0)[0], treeConfig);
     }
 
     /* ======== css ======== */

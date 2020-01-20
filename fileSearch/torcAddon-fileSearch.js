@@ -2,7 +2,7 @@
 // @name         torcAddons-fileSearch
 // @namespace    http://torcado.com
 // @description  adds a searchbar to the file tree
-// @version      1.0.5
+// @version      1.0.6
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-fileSearch | v1.0.5
+ * torcAddons-fileSearch | v1.0.6
  * adds a searchbar to the file tree
  * by torcado
  */
@@ -45,7 +45,7 @@
         $('.torc-tree').remove();
         t.fileTree = [];
         t.fileList = [];
-        $('ul.filetree').eq(0).find('.file').each(function(el){
+        $('ul.filetree:not(.torc)').eq(0).find('.file').each(function(el){
             let pathName = $(this).attr('title'),
                 path = pathName.split('/');
             let dir,
@@ -139,7 +139,7 @@
                 });
             }
 
-            $('ul.filetree .folder').each(function(){
+            $('ul.filetree:not(.torc) .folder').each(function(){
                 let $this = $(this)
                 if($this.find('.file:not(.torc-searchHide)').length === 0){
                     $this.addClass('torc-searchHide');

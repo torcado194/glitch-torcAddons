@@ -2,7 +2,7 @@
 // @name         torcAddons
 // @namespace    http://torcado.com
 // @description  a base driver for glitch.com addons
-// @version      1.4.1
+// @version      1.4.2
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons | v1.4.1
+ * torcAddons | v1.4.2
  * a base driver for glitch.com addons
  * by torcado
  */
@@ -164,7 +164,7 @@ window.torcAddons = torcAddons;
         }
 
         function observeTree(){
-            if(!$('.filetree')[0]){
+            if(!$('ul.filetree:not(.torc)')[0]){
                 return;
             }
             clearInterval(treeInterval);
@@ -173,7 +173,7 @@ window.torcAddons = torcAddons;
                 childList: true,
                 characterData: true
             };
-            treeObserver.observe($('.filetree').eq(0)[0], treeConfig);
+            treeObserver.observe($('ul.filetree:not(.torc)').eq(0)[0], treeConfig);
 
 
             if(application.projectIsLoaded()){

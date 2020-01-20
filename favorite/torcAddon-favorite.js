@@ -2,7 +2,7 @@
 // @name         torcAddons-favorite
 // @namespace    http://torcado.com
 // @description  adds the ability to favorite files to pin them to the top of the file list
-// @version      1.1.3
+// @version      1.1.4
 // @author       torcado
 // @license      MIT
 // @icon         http://torcado.com/torcAddons/icon.png
@@ -15,7 +15,7 @@
 
 
 /*
- * torcAddons-favorite | v1.1.3
+ * torcAddons-favorite | v1.1.4
  * adds the ability to favorite files to pin them to the top of the file list
  * by torcado
  */
@@ -43,11 +43,11 @@
     function setFavorites(){
         $('.torc-favoritesList').remove();
         let favsList = {},
-            html = '<div class="torc-favoritesList filetree"><div class="torc-favoritesTitle">favorites</div></div>'
+            html = '<div class="torc-favoritesList torc filetree"><div class="torc-favoritesTitle">favorites</div></div>'
         if($('.torc-search')[0]){
             favsList = $(html).insertBefore($('.torc-search'));
         } else {
-            favsList = $(html).insertBefore($('.filetree'));
+            favsList = $(html).insertBefore($('.filetree:not(.torc)'));
         }
         let favs = JSON.parse(localStorage.getItem('favorites'));
         favs && favs[project] && favs[project].forEach(v => {
