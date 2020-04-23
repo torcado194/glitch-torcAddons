@@ -9,6 +9,7 @@
 // @run-at       document-start
 // @grant        none
 // @include      http*://glitch.com/edit/*
+// @require      https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @updateURL    https://raw.githubusercontent.com/torcado194/glitch-torcAddons/master/torcAddons.js
 // @downloadURL  https://raw.githubusercontent.com/torcado194/glitch-torcAddons/master/torcAddons.js
 // ==/UserScript==
